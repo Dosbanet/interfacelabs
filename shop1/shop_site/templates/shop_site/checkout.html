@@ -1,0 +1,20 @@
+<!-- Template for checkout page. -->
+{% extends "shop_site/base.html" %}
+{% load static %}
+{% block title %} Nothing Shop - Checkout {% endblock %}
+
+{% block main-body %}
+
+<div class="container">
+	<div class="alert alert-info mt-3 shadow-sm text-center">
+		<h2>Checkout</h2>
+	</div>
+	<h4>Please fill out all fields below</h4>
+	<h5 class="text-warning">Please note that at current time, only payment option is by cash. We are sorry for inconvenience.</h5>
+	<form action="{% url 'purchase' %}" class="my-3" method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input class="btn btn-primary btn-block" type="submit" value="Purchase!"/>
+	</form>
+</div>
+{% endblock %}

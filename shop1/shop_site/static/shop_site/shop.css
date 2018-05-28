@@ -1,0 +1,24 @@
+.news_panel {
+	padding-left: 1px; 
+}
+
+.user_panel {
+	height: 4vh;
+	min-height: 37px;
+	color: white;
+	background-color: #4d79ff;
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+}
+
+.user_panel p {
+	text-align: right;
+	padding: 5px;
+	padding-right: 10px;
+}
+
+
+.merch_list a:visited {
+	color: purple;
+}

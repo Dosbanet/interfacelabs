@@ -1,0 +1,23 @@
+<!-- Template for purchase result page. -->
+{% extends "shop_site/base.html" %}
+{% load static %}
+{% block title %} Nothing Shop - Purchase {% endblock %}
+
+{% block main-body %}
+
+<div class="container">
+	{% if result %}
+		<div class="alert alert-success mt-3 shadow-sm text-center">
+			<h2>Success!!!</h2>
+		</div>
+		<h4 class="text-info">Your order will be shipped to specified address soon! Thank you for your patronage!</h4>
+		<p><a class="text-primary" href="{% url 'index' %}">Click here to return to catalogue.</a></p>
+	{% else %}
+		<div class="alert alert-warning mt-3 shadow-sm text-center">
+			<h2>Failure...</h2>
+		</div>
+		<h4 class="text-info">Something has gone wrong during checkout. Please try again later!</h4>
+		<p><a class="text-primary" href="{% url 'index' %}">Click here to return to catalogue.</a></p>
+	{% endif %}
+</div>
+{% endblock %}

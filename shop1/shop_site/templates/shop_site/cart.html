@@ -1,0 +1,47 @@
+<!-- Template for cart page. -->
+{% extends "shop_site/base.html" %}
+{% load static %}
+{% block title %} Nothing Shop - Shopping cart {% endblock %}
+
+{% block main-body %}
+<div class="container w-75 mt-2 mx-3 shadow-sm">
+	<h1>Your shopping cart:</h1>
+	{% if cart %}
+		<ul class="list-group">
+		{% for item in cart %}
+			<li id="list{{ item.0.id }}" class="list-group-item mb-3">
+				<div class="row">
+					<div class="col-lg-2">
+						<img src="{% static item.0.image %}" class="img-fluid mh-100 mw-100 mx-auto d-block" alt="{{ item.0.name }}"/>
+					</div>
+					<div class="col-lg-5">
+						<h1><a class="text-info" href="{% url 'detail' item.0.id %}">{{ item.0.name }}</a></h1>
+						<h3>In cart: {{ item.1 }} units.</h3>
+					</div>
+					<div class="col-lg-4">
+						<h3>Remove: </h3>
+						<form method="post">
+							{% csrf_token %}
+							<input name="merchid" type="hidden" value="{{ item.0.id }}"/>
+							<input class="mt-1 mb-3" name="merchnum" type="number" value="1" min="1" max="{{ item.1 }}">
+							<input name="remove" type="submit" value="Remove items from cart" class="btn-warning btn-lg active"></input>
+						</form>
+					</div>
+				</div>
+			</li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<p>There's nothing there!</p>
+	{% endif %}
+</div>
+
+<div class="container w-50 mt-3 mx-3 shadow-sm">
+	<h4 class="my-3">Total cost: {{ cost }}</h4>
+	{% if cost > 0 %}
+		<p><a href="{% url 'checkout' %}" class="btn btn-success btn-lg active mb-3">Checkout!</a></p>
+	{% else %}
+		<p><a href="#" class="btn btn-secondary btn-lg disabled mb-3">Checkout!</a></p>
+	{% endif %}
+</div>
+{% endblock %}

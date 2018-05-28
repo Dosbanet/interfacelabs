@@ -1,0 +1,44 @@
+<!-- Template for merch list page. -->
+{% extends "shop_site/base.html" %}
+{% load static %}
+{% block main-body %}
+	<div class="merch_list container-fluid mt-3">
+		<div class="row">
+			<div class="col-sm-1 card shadow-sm">News?</div>
+			<div class="col-lg-10">
+				{% if merch_list %}
+					{% for merch in merch_list %}
+					<div class="card mb-3 shadow-sm">
+						<div class="row">
+							<div class="col-lg-2">
+								<img src="{% static merch.image %}" class="img-fluid mh-100 mw-100 mx-auto d-block" alt="{{ merch.name }}"/>
+							</div>
+							<div id="merch{{ merch.id }}" class="col-lg-7">
+								<h1><a href="{% url 'detail' merch.id %}">{{ merch.name }}</a></h1>
+								<p>{{ merch.desc }}</p>
+								{% if merch.quantity > 0 %}
+								<form action="{% url 'cart' %}" method="post">
+								{% csrf_token %}
+									<input name="merchid" type="hidden" value="{{ merch.id }}"/>
+									<input name="merchnum" type="number" value="1" min="1" max="{{ merch.quantity }}">
+									<input name="buy" type="submit" value="&#x1f6d2; &#x24;{{ merch.price }}" class="btn-info btn-lg active mb-3"></input>
+								</form>
+								{% else %}
+									<p><a href="#" class="btn btn-secondary btn-lg disabled">Stock is empty...</a></p>
+								{% endif %}
+							</div>
+							<div class="col-lg-2">
+								<h2>Availability:</h2>
+								<h4>Main store: {{ merch.quantity }} units left!</h4>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				{% else %}
+					<p>No merchandize available. Check back later!.</p>
+				{% endif %}
+			</div>
+			<div class="col-sm-1 card shadow-sm">Something?</div>
+		</div>
+	</div>
+{% endblock %}

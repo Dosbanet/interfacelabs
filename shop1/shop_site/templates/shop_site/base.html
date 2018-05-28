@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- This is main template for site. It specifies top panel and blocks to be replaced by children. -->
+{% load static %}
+<html>
+	<head>
+		<title>{% block title %} Nothing Shop {% endblock %}</title>
+		<meta charset="UTF-8"/>
+		<meta name="description" content="Site to buy nothing in"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="{% static 'shop_site/bootstrap/css/bootstrap.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static 'shop_site/shop.css' %}" />
+	</head>
+
+	<div class="user_panel container-fluid">
+	{% if user.is_authenticated %}
+	<div class="d-flex justify-content-between">
+		<p>Nothing Shop - <a class="text-white" href="{% url 'index' %}">Catalogue</a></p>
+		<p id="welcome-text">Have a nice day, {{ user.username }} | <a class="text-white" href="{% url 'cart' %}">Cart</a> | <a class="text-white" href="{% url 'logout' %}">Logout</a> |</p>
+	</div>
+	{% else %}
+	<div class="d-flex justify-content-between">
+		<p>Nothing Shop - <a class="text-white" href="{% url 'index' %}">Catalogue</a></p>
+		<p id="welcome-text">Welcome, new user | <a class="text-white" href="{% url 'register' %}">Register</a> | <a class="text-white" href="{% url 'login' %}">Login</a> | </p>
+	</div>
+	{% endif %}
+	</div>
+
+	{% block main-body %}
+		<p>There might be something here.</p>
+	{% endblock %}
+</html>

@@ -1,0 +1,16 @@
+<!-- Template for no access page. -->
+{% extends "shop_site/base.html" %}
+{% load static %}
+{% block title %} Nothing Shop - No way {% endblock %}
+
+{% block main-body %}
+	<div class="alert alert-warning mt-3 shadow-sm">
+		You need to be <strong>logged in</strong> first.
+	</div>
+	<script type="text/javascript">
+		setTimeout(function() {
+			window.location.href = "{% url 'login' %}";
+		}, 3000);
+	</script>
+	<noscript><a href="{% url 'login' %}">Click here to log in.</a></noscript>
+{% endblock %}

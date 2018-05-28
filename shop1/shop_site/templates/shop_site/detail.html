@@ -1,0 +1,34 @@
+<!-- Template for merch detail page. -->
+{% extends "shop_site/base.html" %}
+{% load static %}
+{% block title %} Nothing Shop - {{ merch.name }} {% endblock %}
+
+{% block main-body %}
+<div class="detail-card container w-75 mt-2 mx-3 shadow-sm">
+	<div class="row">
+		<div class="col-lg-9">
+			<h1><a class="text-info" href="{% url 'index' %}" title="Back to list"><<<</a> {{ merch.name }}</h1>
+			<div class="row">
+				<div class="col-lg-4">
+					<img src="{% static merch.image %}" class="img-fluid mh-100 mw-100 mx-auto d-block" alt="{{ merch.name }}"/>
+				</div>
+				<div class="col-lg-8">
+					<p>Item description: {{ merch.desc }}</p>
+					<p>Price: &#x24;{{ merch.price }}</p>
+					<p>Quantity: {{ merch.quantity }}</p>
+					{% if merch.quantity > 0 %}
+					<form action="{% url 'cart' %}" method="post">
+						{% csrf_token %}
+						<input name="merchid" type="hidden" value="{{ merch.id }}"/>
+						<input name="merchnum" type="number" value="1" min="1" max="{{ merch.quantity }}">
+						<input name="buy" type="submit" value="Put in cart!" class="btn-info btn-lg active"></input>
+					</form>
+					{% else %}
+						<p><a href="#" class="btn btn-secondary btn-lg disabled">Stock is empty...</a></p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

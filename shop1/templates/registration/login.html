@@ -1,0 +1,15 @@
+<!-- Template for login page. -->
+{% extends "shop_site/base.html" %}
+
+{% block title %}Nothing Shop - Login{% endblock %}
+
+{% block main-body %}
+<div class="card container w-50 shadow-sm">
+	<h2>Login</h2>
+	<form method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button class="btn btn-primary btn-block" type="submit">Login</button>
+	</form>
+</div>
+{% endblock %}
